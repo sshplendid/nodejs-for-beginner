@@ -1,0 +1,15 @@
+{
+  "name": "node-hero",
+  "version": "1.0.0",
+  "description": "tutorial project in Node.JS",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: No test specified\" && exit 1",
+    "start": "node index.js"
+  },
+  "keywords": [
+    "tutorial"
+  ],
+  "author": "SeHun Shin",
+  "license": "ISC"
+}
