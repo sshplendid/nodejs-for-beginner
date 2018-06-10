@@ -4,12 +4,19 @@
   "description": "tutorial project in Node.JS",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: No test specified\" && exit 1",
-    "start": "node index.js"
+    "test": "mocha test",
+    "start": "node index.js",
+    "banner": "scripts/banner.sh"
   },
   "keywords": [
     "tutorial"
   ],
   "author": "SeHun Shin",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "lodash": "^4.17.10"
+  },
+  "devDependencies": {
+    "mocha": "^5.2.0"
+  }
 }
