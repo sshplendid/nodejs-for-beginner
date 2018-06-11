@@ -15,6 +15,7 @@
   "author": "SeHun Shin",
   "license": "ISC",
   "dependencies": {
+    "express": "^4.16.3",
     "lodash": "^4.17.10"
   },
   "devDependencies": {
