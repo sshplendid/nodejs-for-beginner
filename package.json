@@ -6,7 +6,8 @@
   "scripts": {
     "test": "mocha test",
     "start": "node index.js",
-    "banner": "scripts/banner.sh"
+    "banner": "scripts/banner.sh",
+    "supervisor": "supervisor index"
   },
   "keywords": [
     "tutorial"
