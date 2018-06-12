@@ -3,7 +3,7 @@
 const express = require('express');
 const app = express();
 const port = 3000;
-const usersRouter = require('./app/users/router');
+const usersRouter = require('./app/users/index');
 
 // request body parser
 var bodyParser = require('body-parser');
@@ -13,6 +13,7 @@ app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x
 
 app.use((req, res, next) => {
   console.log(`${req.method} ${req.url}`);
+  // console.log(req.body);
   next();
 });
 
