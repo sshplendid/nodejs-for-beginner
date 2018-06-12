@@ -3,6 +3,7 @@
 const express = require('express');
 const app = express();
 const port = 3000;
+const usersRouter = require('./app/users/router');
 
 // request body parser
 var bodyParser = require('body-parser');
@@ -34,6 +35,9 @@ app.get('/error', (req, res) => {
   throw new Error(`Oops!`);
 });
 
+app.use('/users', usersRouter);
+
+/*
 const users = [];
 users.push({id: 1, name: 'Jim', age: 20});
 users.push({id: 2, name: 'Kate', age: 30});
@@ -68,6 +72,7 @@ app.put('/users/:id', (req, res) => {
 
   res.json({status:200, message: `successfully update user has id ${id}`, data: users.filter(u => u.id == id)});
 });
+*/
 
 
 app.use((err, req, res, next) => {
