@@ -6,3 +6,6 @@ curl -X POST -H 'Content-Type: application/json' -d '{"name":"Jim","age":25}' ht
 echo
 curl -X PUT -H 'Content-Type: application/json' -d '{"name":"Jim","age":123}' http://localhost:3000/users/1
 echo
+
+curl -X POST -H 'Content-Type: application/json' -d '{"name":"Applemango","color":"red"}' http://localhost:3000/fruits
+echo
