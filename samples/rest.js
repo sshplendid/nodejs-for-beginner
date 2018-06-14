@@ -58,4 +58,19 @@ function sendRequest(options) {
   });
 }
 
-sendRequest(options);
+// sendRequest(options);
+
+
+// yahoo stock
+const url = `https://query1.finance.yahoo.com/v8/finance/chart/005930.KS?formatted=true&crumb=hPh88qG98Uf&lang=en-US&region=US&period1=1371222000&period2=1528988400&interval=1mo&events=div%7Csplit&corsDomain=finance.yahoo.com`;
+
+function getHistoricalStockData(options) {
+  const url = options.makeTarget();
+  console.log(`url => ${url}`);
+    request(url, (err, res, body) => {
+    console.log(JSON.parse(body).chart.result[0].indicators.quote);
+    var result = JSON.parse(body).chart.result[0].indicators.quote;
+  });
+}
+
+var data = getHistoricalStockData({makeTarget: () => url});
