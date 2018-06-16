@@ -1,43 +1,6 @@
 const request = require('request');
 const parser = require('xml2js').parseString;
 const apiConfig = require('../config/api');
-/*
-const endpoint = `http://apis.data.go.kr/9760000/PofelcddInfoInqireService/getPofelcddRegistSttusInfoInqire`;
-const params = {
-  ServiceKey: 'pQlcWMUAUzc%2BZLuWkbvgKK61qPVujsKOGfntYmKv1oYbi58plI0djoWby96QnuHnus1lX81Q%2FfOERNVeCrKNZg%3D%3D',
-};
-var sggName =  encodeURIComponent('마포구');
-const url = `http://apis.data.go.kr/9760000/PofelcddInfoInqireService/getPofelcddRegistSttusInfoInqire?ServiceKey=pQlcWMUAUzc%2BZLuWkbvgKK61qPVujsKOGfntYmKv1oYbi58plI0djoWby96QnuHnus1lX81Q%2FfOERNVeCrKNZg%3D%3D&ServiceKey=-&pageNo=1&numOfRows=10&sgId=20180613&sgTypecode=4&sggName=%EB%A7%88%ED%8F%AC%EA%B5%AC&sdName=%EC%84%9C%EC%9A%B8%ED%8A%B9%EB%B3%84%EC%8B%9C&jdName=%EB%8D%94%EB%B6%88%EC%96%B4%EB%AF%BC%EC%A3%BC%EB%8B%B9`;
-console.log(url);
-function test() {
-  request(url, function(err, res, body) {
-    if(err) throw new Error('Oops...!');
-    var result = parser(body, (err, res) => {
-      console.dir(res.response.header);
-      console.dir(res.response.body);
-      res.response.body[0].items.forEach(o => console.log(o));
-    });
-  });
-}
-
-test();
-
-
-var options = {
-  endpoint: 'http://apis.data.go.kr/1192000/openapi/service/ManageExpItemService',
-  function: '/getExpItemList',
-  key: 'pQlcWMUAUzc%2BZLuWkbvgKK61qPVujsKOGfntYmKv1oYbi58plI0djoWby96QnuHnus1lX81Q%2FfOERNVeCrKNZg%3D%3D',
-  params: {
-    numOfRows: 10,
-    pageNo: 1,
-    baseDt: 201501,
-    imxprtSeNm: '수입',
-    itemNm: '연어'
-  }
-};
-*/
-
-
 
 // dart 기업정보 request sample
 const apiKey = apiConfig.getDartApiKey();
@@ -58,8 +21,6 @@ function sendRequest(options) {
   });
 }
 
-// sendRequest(options);
-
 
 // yahoo stock
 const url = `https://query1.finance.yahoo.com/v8/finance/chart/005930.KS?formatted=true&crumb=hPh88qG98Uf&lang=en-US&region=US&period1=1371222000&period2=1528988400&interval=1mo&events=div%7Csplit&corsDomain=finance.yahoo.com`;
@@ -73,4 +34,33 @@ function getHistoricalStockData(options) {
   });
 }
 
-var data = getHistoricalStockData({makeTarget: () => url});
+// use async-request
+const aReq = require('async-request');
+const ur1 = `https://query1.finance.yahoo.com/v8/finance/chart/005930.KS`;
+async function getResponse(url, params) {
+  var res = await aReq(url, {
+      method: 'GET', data: {
+        formatted: true,
+        crumb:'hPh88qG98Uf',
+        lang:'en-US',
+        region:'US',
+        period1:'1371222000',
+        period2:'1528988400',
+        interval:'1mo', // 1mo 1wk 1d
+        events:'div|split',
+        corsDomain:'finance.yahoo.com',
+      }, headers: {
+
+      }
+      // ,proxy: ''
+      //, cookieJar : true
+      // ,cookieJar: new tough.CookieJar()
+  });
+  var data = JSON.parse(res.body).chart.result[0].indicators.quote[0];
+  console.log(data);
+}
+
+// sendRequest(options);
+// getHistoricalStockData({makeTarget: () => url});
+var result =  getResponse(ur1);
+// console.log(JSON.parse(result));
