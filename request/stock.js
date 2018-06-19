@@ -3,29 +3,20 @@
 const req = require('async-request');
 
 async function getStockHistoricalData(code, market, interval, period1, period2) {
-  const url = `https://query1.finance.yahoo.com/v8/finance/chart/${code}.${market}`;
-  // console.log(url);
-  var res = await req(url, {
-      method: 'GET', data: {
-        formatted: true,
-        crumb:'hPh88qG98Uf',
-        lang:'en-US',
-        region:'US',
-        period1:Math.round(period1.getTime()/1000),
-        period2:Math.round(period2.getTime()/1000),
-        interval:interval, // [1m, 2m, 5m, 15m, 30m, 60m, 90m, 1h, 1d, 5d, 1wk, 1mo, 3mo]
-        events:'div|split',
-        corsDomain:'finance.yahoo.com',
-      }, headers: {
+  const url = `https://query1.finance.yahoo.com/v8/finance/chart/${code}.${market}?formatted=true&crumb=hPh88qG98Uf&lang=en-US&region=US&period1=${period1}&period2=${period2}&interval=${interval}&events=div|split&corsDomain=finance.yahoo.com`;
+  if(!code || !market || !interval || !period1 || !period2) {
+    console.error(`Broken parameters! => ${url}`);
+    return {status:500, message:`Broken parameters! => ${url}`};
+  }
 
-      }
-      // ,proxy: ''
-      //, cookieJar : true
-      // ,cookieJar: new tough.CookieJar()
+  var res = await req(url, {
+      method: 'GET'
+      , headers: {}
   });
-  // console.log(res.body);
+
+
   var data = JSON.parse(res.body).chart.result[0].indicators.quote[0];
-  return data;
+  return {status:200, data:JSON.parse(res.body)};
 }
 
 module.exports = {
